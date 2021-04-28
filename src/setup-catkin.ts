@@ -23,17 +23,17 @@ function installRos(version: string, build_tool: string) {
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 &&
 sudo apt-get update &&
 sudo apt-get -qq update -y &&
-( sudo apt-get -qq install build-essential openssh-client ros-${version}-ros-base ${build_tool_py3} python3-rosdep -y ||
-sudo apt-get -qq install build-essential openssh-client ros-${version}-ros-base ${build_tool_py2} python-rosdep -y ; ) &&
+( sudo apt-get -qq install build-essential openssh-client ros-${version}-desktop-full ${build_tool_py3} python3-rosdep -y ||
+sudo apt-get -qq install build-essential openssh-client ros-${version}-desktop-full ${build_tool_py2} python-rosdep -y ; ) &&
 sudo rosdep init &&
 rosdep update`;
-  child_process.execSync(command, {stdio: 'inherit'});
+  child_process.execSync(command, { stdio: 'inherit' });
 }
 function rosdepInstall(workspace_root: string, version: string) {
   let command = `. /opt/ros/${version}/setup.sh &&
 cd ${workspace_root} &&
 rosdep install --from-paths --reinstall --ignore-packages-from-source --default-yes --verbose .`;
-  child_process.execSync(command, {stdio: 'inherit'});
+  child_process.execSync(command, { stdio: 'inherit' });
 }
 
 function makeInitCommand(build_tool: string) {
